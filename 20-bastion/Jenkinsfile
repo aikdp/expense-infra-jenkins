@@ -18,13 +18,14 @@ pipeline {
     stages {
         stage('Init and Plan') {
             steps {
-                withAWS(region: 'us-east-1', credentials: 'aws-creds')      //add credential id here eg: aws-creds
+                withAWS(region: 'us-east-1', credentials: 'aws-creds'){      //add credential id here eg: aws-creds
 
                     sh """
                     cd 20-bastion
                     terraform init -reconfigure
                     terraform plan -out=tfplan
                     """
+                }
             }
         }
         stage('Apply or Destroy') {
