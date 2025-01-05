@@ -35,19 +35,20 @@ pipeline {
             //     ok "Yes, we should."
             // }
             steps {
-                withAWS(region: 'us-east-1', credentials: 'aws-creds')
+                withAWS(region: 'us-east-1', credentials: 'aws-creds'){
 
                 sh """
-                cd 00-vpc
-                if [ ${params.ACTION} == 'apply' ]
-                then
-                    terraform apply "tfplan" -auto-approve
+                    cd 00-vpc
+                    if [ ${params.ACTION} == 'apply' ]
+                    then
+                        terraform apply -auto-approve tfplan
 
-                elif [ ${params.ACTION} == 'destroy' ]
-                then
-                    terraform destroy -auto-approve
-                fi
+                    elif [ ${params.ACTION} == 'destroy' ]
+                    then
+                        terraform destroy -auto-approve
+                    fi
                 """
+                }
             }
         }
         stage('Trigger Downstream Job') {
