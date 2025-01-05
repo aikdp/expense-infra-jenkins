@@ -23,7 +23,7 @@ pipeline {
                     sh """
                     cd 70-ecr
                     terraform init -reconfigure
-                    terrafrom paln -out=tfplan
+                    terraform paln -out=tfplan
                     """
                 }
             }

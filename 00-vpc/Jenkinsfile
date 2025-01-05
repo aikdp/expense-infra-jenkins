@@ -24,7 +24,7 @@ pipeline {
                         cd 00-vpc
                         terraform init -reconfigure
 
-                        terrafrom paln -out=tfplan
+                        terraform paln -out=tfplan
                     """
                 }
             }

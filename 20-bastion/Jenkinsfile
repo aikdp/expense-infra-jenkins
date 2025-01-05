@@ -23,7 +23,7 @@ pipeline {
                     sh """
                     cd 20-bastion
                     terraform init -reconfigure
-                    terrafrom paln -out=tfplan
+                    terraform paln -out=tfplan
                     """
             }
         }
