@@ -9,7 +9,7 @@ pipeline {
         ansiColor('xterm')
     }
     environment{
-        env
+        // env
         appVersion = ''
     }
     parameters {    //added this params
@@ -23,7 +23,7 @@ pipeline {
                     sh """
                     cd 00-vpc
                     terraform init -reconfigure
-                    
+
                     terrafrom paln -out=tfplan
                     """
             }

@@ -9,7 +9,7 @@ pipeline {
         ansiColor('xterm')
     }
     environment{
-        env
+        // env
         appVersion = ''
     }
     parameters {    //added this params
