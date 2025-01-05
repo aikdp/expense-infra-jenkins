@@ -62,7 +62,7 @@ pipeline {
         //Triigerring parallel stages
         stage('Parallel Stages'){
             when {
-                expression {params.ACTION == 'apply'}
+                expression { params.ACTION == 'apply' }
             }
             parallel{
                 stage('Bastion'){
@@ -94,9 +94,9 @@ pipeline {
         }
         stage('Sequential'){
             when{
-                expression {params.ACTION == 'apply'}
+                expression { params.ACTION == 'apply' }
             }
-            parallel{
+            stages{
                 stage('ACM'){
                     steps{
                         build job: '50-acm', parameters: [String(name: 'ACTION', value: 'apply')] //once complted, then trigger next
