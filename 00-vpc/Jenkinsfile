@@ -1,0 +1,75 @@
+pipeline {
+    agent{
+        label 'AGENT-1'
+    }
+    options{
+        timeout(time: 30, unit: 'MINUTES')
+        // disableConcurrentBuilds()
+        retry(2)
+        ansiColor('xterm')
+    }
+    environment{
+        env
+        appVersion = ''
+    }
+    parameters {    //added this params
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select actions')
+    }
+    stages {
+        stage('Init and Plan') {
+            steps {
+                withAWS(region: 'us-east-1', credentials: 'aws-creds')      //add credential id here eg: aws-creds
+
+                    sh """
+                    cd 00-vpc
+                    terraform init -reconfigure
+                    terrafrom paln -out=tfplan
+                    """
+            }
+        }
+        stage('Apply or Destroy') {
+            input {
+                message "Should we continue to vpc ?"
+                ok "Yes, we should."
+            }
+            steps {
+                withAWS(region: 'us-east-1', credentials: 'aws-creds')
+
+                sh """
+                cd 00-vpc
+                if [${params.ACTION} == 'apply']
+                then
+                    terraform apply -auto-approve tfplan
+
+                elif [${params.ACTION} == 'destroy']
+                then
+                    terraform destroy -auto-approve
+                fi
+                """
+            }
+        }
+        stage('Trigger Downstream Job') {
+            when {
+                expression {params.ACTION == apply }
+            }
+            steps {
+                build job: '10-sg', parameters: [string(name: 'ACTION', value: 'apply')]
+                // build job: '10-sg', parameters: [[$class: 'StringParameterValue', name: 'ACTION', value: apply]]
+            } 
+}
+    }
+    post{
+        always{
+            echo "This section run alwys"   
+            deleteDir()     //delete directory, for waste of memory
+        }
+        success{
+            echo "This section run when pipleine is seccess."
+        }
+        failure{
+            echo "this section fail when pipeline is FAILED"
+        }
+    }
+}
+
+
