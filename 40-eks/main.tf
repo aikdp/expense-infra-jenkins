@@ -1,7 +1,8 @@
 #Creating Key Pair
 resource "aws_key_pair" "eks" {
   key_name   = "eks"
-  public_key = file("~/.ssh/eks.pub")  #ath to your public key file
+  # public_key = file("~/.ssh/eks.pub")  #ath to your public key file
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgAYaUbx35udWm64m0FUCSVSnfxbol6vgCiBIMIItiR kdpra@KDP"
 }
 
 module "eks" {
