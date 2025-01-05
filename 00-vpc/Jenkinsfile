@@ -53,10 +53,10 @@ pipeline {
         }
         stage('Trigger Downstream Job') {
             when {
-                expression {params.ACTION == apply }
+                expression {params.ACTION == 'apply' }
             }
             steps {
-                build job: '10-sg', parameters: [string(name: 'ACTION', value: 'apply')]
+                build job: '10-sg', parameters: [string(name: 'ACTION', value: 'apply')], wait: false
                 // build job: '10-sg', parameters: [[$class: 'StringParameterValue', name: 'ACTION', value: apply]]
             } 
 }
