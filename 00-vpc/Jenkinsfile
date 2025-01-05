@@ -41,7 +41,7 @@ pipeline {
                 cd 00-vpc
                 if [ ${params.ACTION} == 'apply' ]
                 then
-                    terraform apply -auto-approve tfplan
+                    terraform apply "tfplan" -auto-approve
 
                 elif [ ${params.ACTION} == 'destroy' ]
                 then
