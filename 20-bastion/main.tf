@@ -13,7 +13,7 @@ module "bastion" {
     var.common_tags,
     var.bastion_tags,
         {
-          Name = "${local.resource_name}"
+          Name = "${local.resource_name}-bastion"
         }
   )
 }
