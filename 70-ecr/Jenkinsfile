@@ -38,11 +38,11 @@ pipeline {
 
                 sh """
                     cd 70-ecr
-                    if [${params.ACTION} == 'apply']
+                    if [ ${params.ACTION} == 'apply' ]
                     then
                         terraform apply -auto-approve tfplan
 
-                    elif [${params.ACTION} == 'destroy']
+                    elif [ ${params.ACTION} == 'destroy' ]
                     then
                         terraform destroy -auto-approve
                     fi
