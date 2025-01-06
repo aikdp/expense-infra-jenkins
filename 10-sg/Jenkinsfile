@@ -16,18 +16,18 @@ pipeline {
         choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select actions')
     }
     stages {
-        stage('Init and Plan') {
-            steps {
-                withAWS(region: 'us-east-1', credentials: 'aws-creds') {     //add credential id here eg: aws-creds
+        // stage('Init and Plan') {
+        //     steps {
+        //         withAWS(region: 'us-east-1', credentials: 'aws-creds') {     //add credential id here eg: aws-creds
 
-                    sh """
-                        cd 10-sg
-                        terraform init -reconfigure
-                        terraform plan
-                    """
-                }
-            }
-        }
+        //             sh """
+        //                 cd 10-sg
+        //                 terraform init -reconfigure
+                       
+        //             """
+        //         }
+        //     }
+        // }
         stage('Apply or Destroy') {
             // input {
             //     message "Should we continue to SG ?"
