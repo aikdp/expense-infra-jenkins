@@ -90,8 +90,7 @@ pipeline {
             parallel{
                 stage('ACM'){
                     steps{
-                        build job: '50-acm', parameters: [string(name: 'ACTION', value: 'destroy')]
-                    }
+                        build job: '50-acm', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false                   }
                 }
                 stage('SG'){
                     steps{
@@ -100,7 +99,7 @@ pipeline {
                 }
                 stage('VPC'){
                     steps{
-                         build job: '00-vpc', parameters: [string(name: 'ACTION', value: 'destroy')]
+                         build job: '00-vpc', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false 
                     }
                 }
             }
