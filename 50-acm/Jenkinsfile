@@ -34,19 +34,20 @@ pipeline {
             //     ok "Yes, we should."
             // }
             steps {
-                withAWS(region: 'us-east-1', credentials: 'aws-creds')
+                withAWS(region: 'us-east-1', credentials: 'aws-creds'){
 
                 sh """
-                cd 50-acm
-                if [${params.ACTION} == 'apply']
-                then
-                    terraform apply -auto-approve tfplan
+                    cd 50-acm
+                    if [${params.ACTION} == 'apply']
+                    then
+                        terraform apply -auto-approve tfplan
 
-                elif [${params.ACTION} == 'destroy']
-                then
-                    terraform destroy -auto-approve
-                fi
+                    elif [${params.ACTION} == 'destroy']
+                    then
+                        terraform destroy -auto-approve
+                    fi
                 """
+                }
             }
         }
     }
