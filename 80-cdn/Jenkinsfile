@@ -58,27 +58,27 @@ pipeline {
             parallel{
                 stage('ECR'){
                     steps{
-                        build job: '70-ecr', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy'], wait: false
+                        build job: '70-ecr', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false
                     }
                 }
                 stage('ALB'){
                     steps{
-                        build job: '60-alb', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy'], wait: false
+                        build job: '60-alb', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false
                     }
                 }
                 stage('EKS'){
                     steps{
-                        build job: '40-eks', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy'], wait: true
+                        build job: '40-eks', parameters: [string(name: 'ACTION', value: 'destroy')], wait: true
                     }
                 }
                 stage('RDS'){
                     steps{
-                        build job: '30-rds', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy'], wait: false
+                        build job: '30-rds', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false
                     }
                 }
                 stage('BAstion'){
                     steps{
-                        build job: '20-bastion', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy'], wait: false
+                        build job: '20-bastion', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false
                     }
                 }
             }
@@ -90,17 +90,17 @@ pipeline {
             parallel{
                 stage('ACM'){
                     steps{
-                        build job: '50-acm', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy']
+                        build job: '50-acm', parameters: [string(name: 'ACTION', value: 'destroy')]
                     }
                 }
                 stage('SG'){
                     steps{
-                         build job: '10-sg', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy'], wait: true
+                         build job: '10-sg', parameters: [string(name: 'ACTION', value: 'destroy')], wait: true
                     }
                 }
                 stage('VPC'){
                     steps{
-                         build job: '00-vpc', parameters[$class: 'StringParameterValue', name: 'ACTION', value: 'destroy']
+                         build job: '00-vpc', parameters: [string(name: 'ACTION', value: 'destroy')]
                     }
                 }
             }
