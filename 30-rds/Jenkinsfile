@@ -25,6 +25,7 @@ pipeline {
                     terraform init -reconfigure
                     terraform plan -out=tfplan
                     """
+                }
             }
         }
         stage('Apply or Destroy') {
