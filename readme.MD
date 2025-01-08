@@ -1,6 +1,7 @@
 # Expense DEV Infrastructure 
 
-![alt text](jenkins-parallel-infra.drawio.svg)
+<!-- ![alt text](jenkins-parallel-infra.drawio.svg) -->
+[text](.$jenkins-parallel-infra.drawio.svg.bkp)
 
 
 - Make sure infra is created.
