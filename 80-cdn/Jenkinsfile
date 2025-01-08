@@ -16,19 +16,19 @@ pipeline {
         choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select actions')
     }
     stages {
-        stage('Init and Plan') {
+        stage('Init and Plan CDN') {
             steps {
                 withAWS(region: 'us-east-1', credentials: 'aws-creds'){      //add credential id here eg: aws-creds
 
                     sh """
-                    cd 80-cdn
-                    terraform init -reconfigure
-                    terraform plan -out=tfplan
+                        cd 80-cdn
+                        terraform init -reconfigure
+                        terraform plan -out=tfplan
                     """
                 }
             }
         }
-        stage('Apply or Destroy') {
+        stage('Apply or Destroy CDN') {
             // input {
             //     message "Should we continue to 80-cdn ?"
             //     ok "Yes, we should."
@@ -37,15 +37,15 @@ pipeline {
                 withAWS(region: 'us-east-1', credentials: 'aws-creds'){
 
                     sh """
-                    cd 80-cdn
-                    if [ ${params.ACTION} == 'apply' ]
-                    then
-                        terraform apply -auto-approve tfplan
+                        cd 80-cdn
+                        if [ ${params.ACTION} == 'apply' ]
+                        then
+                            terraform apply -auto-approve tfplan
 
-                    elif [ ${params.ACTION} == 'destroy' ]
-                    then
-                        terraform destroy -auto-approve
-                    fi
+                        elif [ ${params.ACTION} == 'destroy' ]
+                        then
+                            terraform destroy -auto-approve
+                        fi
                     """
                 }
             }
@@ -83,11 +83,11 @@ pipeline {
                 }
             }
         }
-        stage("Destory ACM, SG and VPC"){
+        stage("Destory ACM, SG and VPC in Sequentially"){
             when{
                 expression {params.ACTION == 'destroy'}
              }
-            stages{
+            stages{     //not parallel
                 stage('ACM Destroy'){
                     steps{
                         build job: '50-acm', parameters: [string(name: 'ACTION', value: 'destroy')], wait: false                   
