@@ -180,7 +180,7 @@ resource "aws_security_group_rule" "node_vpc_cidr" {
   security_group_id = module.node_sg.id 
 }
 
-#Create Security group rules for allow traffic from Node to mysql
+#Create Security group rules for allow traffic from Node to mysql 
 resource "aws_security_group_rule" "mysql_node" {
   type              = "ingress"
   from_port         = 3306

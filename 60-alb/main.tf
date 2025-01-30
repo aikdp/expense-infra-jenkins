@@ -89,7 +89,7 @@ resource "aws_lb_target_group" "expense" {
     interval = 5    
     matcher = "200-299"
     path = "/"    #not health  
-    port = 80
+    port = 8080   #	ALB target group health check port should be 8080(when jenkins use) #internet is access for only frontend in ROboshop app
     protocol = "HTTP"
     timeout = 4
   }

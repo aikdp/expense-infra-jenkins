@@ -60,7 +60,7 @@ module "eks" {
       max_size     = 10
       desired_size = 2
 
-    #   capacity_type  = "SPOT" #due to spot, we get some disturbences....Hence Comment it
+      capacity_type  = "SPOT" #due to spot, we get some disturbences....Hence Comment it
 
       iam_role_additional_policies = {
         AmazonEBSCSIDriverPolicy          = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
