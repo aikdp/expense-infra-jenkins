@@ -9,7 +9,7 @@ terraform {
         bucket         	   = "jenkins-pipeline-remote"
         key                = "jenkins-vpc"
         region         	   = "us-east-1"
-        dynamodb_table = "vpc-module-locking"
+        dynamodb_table = "expense-jenkins-lock"
     }
 }
 
