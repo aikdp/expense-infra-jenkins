@@ -7,7 +7,7 @@ terraform {
   }
     backend "s3" {  #need to create manually in AWS, then use here
         bucket         	   = "vpc-module-rs"
-        key                = "jenkins-vpc"
+        key                = "expense-jenkins-vpc"
         region         	   = "us-east-1"
         dynamodb_table = "expense-jenkins-lock"
     }
