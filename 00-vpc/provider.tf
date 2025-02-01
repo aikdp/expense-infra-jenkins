@@ -9,7 +9,7 @@ terraform {
         bucket         	   = "vpc-module-rs"
         key                = "expense-jenkins-vpc"
         region         	   = "us-east-1"
-        dynamodb_table = "expense-jenkins-lock"
+        dynamodb_table = "vpc-module-locking"
     }
 }
 
